@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined"
+    />
+    <script
+      src="https://kit.fontawesome.com/0082413ecf.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <nav class="main-nav row">
+        <input id="cant-hd" type="text" readonly />
+        <span class="material-icons-outlined car-icon"> shopping_cart </span>
+      </nav>
+    </header>
+    <section class="fotos">
+      <h1 class="row">Modelos</h1>
+      <div class="fotos-box row">
+        <ul id="model-list"></ul>
+      </div>
+    </section>
+
+    <section class="car-compras">
+      <div class="carrito">
+        <h1>Carrito de Compras</h1>
+        <div class="carrito-content">
+          <div class="carrito-content__resumen">
+            <h3>Resumen</h3>
+            <div class="res-box subTotal">
+              <label for="sub-total">Sub-total</label>
+              <input id="sub-total" type="number" readonly />
+            </div>
+            <div class="res-box Impuesto">
+              <label for="igv">IGV</label>
+              <input id="igv" type="number" readonly />
+            </div>
+            <div class="res-box Total">
+              <label for="total">Total</label>
+              <input id="total" type="number" readonly />
+            </div>
+          </div>
+          <div id="CarItems" class="carrito-content__body"></div>
+        </div>
+      </div>
+    </section>
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="script4.js"></script>
+  </body>
+</html>

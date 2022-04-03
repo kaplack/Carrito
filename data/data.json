@@ -1,0 +1,30 @@
+[
+  {
+    "ID": 1,
+    "nombre": "Alicia Machado",
+    "url": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=420&q=80",
+    "tipo": "Modelo de Pasarela",
+    "precio": 100
+  },
+  {
+    "ID": 2,
+    "nombre": "Daniela Carbajal",
+    "url": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+    "tipo": "Modelo de Pasarela",
+    "precio": 80
+  },
+  {
+    "ID": 3,
+    "nombre": "Patricia Machado",
+    "url": "https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    "tipo": "Modelo de Pasarela",
+    "precio": 70
+  },
+  {
+    "ID": 4,
+    "nombre": "Ana Carbajal",
+    "url": "https://images.unsplash.com/photo-1462804993656-fac4ff489837?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    "tipo": "Modelo de Pasarela",
+    "precio": 60
+  }
+]
