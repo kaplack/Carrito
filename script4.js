@@ -1,14 +1,31 @@
-var modelo;
+let modelo;
 
-// carrito click para mostrar carrito
+let carritoArr = JSON.parse(localStorage.getItem("carrito"))
+  ? JSON.parse(localStorage.getItem("carrito"))
+  : [];
 
 const caritoIcon = document.querySelector(".car-icon");
 const mobileMenu = document.querySelector(".car-compras");
 const closeIcon = document.querySelector(".close");
+const carNumber = document.querySelector(".carrito-number");
 
-caritoIcon.addEventListener("click", () => {
-  mobileMenu.classList.toggle("active");
+// carrito click para mostrar carrito
+window.addEventListener("click", (ec) => {
+  if (
+    !mobileMenu.contains(ec.target) &&
+    mobileMenu.classList.contains("active")
+  ) {
+    mobileMenu.classList.remove("active");
+  } else if (ec.target == caritoIcon) {
+    mobileMenu.classList.add("active");
+  }
 });
+
+// guardar en localstorage //Storage JSON
+let storageCarrito = (name, carArr) => {
+  let carritoJSON = JSON.stringify(carArr);
+  localStorage.setItem(name, carritoJSON);
+};
 
 //CAMBIO EN EL INPUT DE CANTIDAD
 let cambioQ = (idFoto) => {
@@ -25,7 +42,7 @@ let cambioQ = (idFoto) => {
   });
   //calcula el total
   calculo();
-  storageCarrito(carritoArr);
+  storageCarrito("carrito", carritoArr);
 };
 
 //Calculo del total e impuesto
@@ -43,7 +60,7 @@ let calculo = () => {
   }
 
   let cantFotos = document.getElementById("cant-hd");
-  cantFotos.value = fotosNum;
+  cantFotos.innerText = fotosNum;
 
   let st = document.getElementById("sub-total");
   st.value = stotal.toFixed(2);
@@ -57,22 +74,12 @@ let calculo = () => {
   tot.value = total.toFixed(2);
 };
 
-// guardar en localstorage
-let storageCarrito = (carArr) => {
-  let carritoJSON = JSON.stringify(carArr);
-  localStorage.setItem("carrito", carritoJSON);
-};
-
 //REMOVER VALOR DEL ARRAY DEL CARRITO
 let removeValue = (val, arrToRem = carritoArr) => {
   let newArr = arrToRem.filter((ele) => ele != val);
   //storageCarrito(newArr);
   return newArr;
 };
-
-let carritoArr = JSON.parse(localStorage.getItem("carrito"))
-  ? JSON.parse(localStorage.getItem("carrito"))
-  : [];
 
 //lista de productos
 let lista = document.getElementById("model-list");
@@ -83,24 +90,36 @@ let delIcons = document.querySelectorAll(".del-icon");
 
 // MOSTRANDO FOTOS A COMPRAR
 const showModelo = () => {
+  lista.innerHTML = "";
   let modelItem = "";
   for (let i = 0; i < modelo.length; i++) {
+    let calcPrecio = modelo[i].precio / moneda.value;
+    calcPrecio = calcPrecio.toFixed(2);
     modelItem += `
       <li class="model">
           <img
             class="model__img"
             src="${modelo[i].url}"
-            alt="preciosa modelo peruana en buso amarillo"
+            alt="${modelo[i].detalle}"
           />
-          <div class="model__content"
+          <div class="model__content">
             <div class="descripcion">
               <h2>${modelo[i].nombre}</h2>
               <p>${modelo[i].tipo}</p>
+              <div class="tipo-cambio">
+              <span id="cur"> ${
+                monedaDiv.querySelector("#tipo_cambio").options[
+                  monedaDiv.querySelector("#tipo_cambio").selectedIndex
+                ].text
+              }</span><input disabled value="${calcPrecio}" />
+              </div>
             </div>
             <div class="form">
               <form action="#" method="post" id="formAdd">
                 <div class="id">
-                  <input type="text" name="id" hidden value="${modelo[i].ID}">
+                  <input class="id-input" type="text" name="id" hidden value="${
+                    modelo[i].ID
+                  }">
                 </div>
                 <!--
                 <div class="pic-size">
@@ -141,7 +160,8 @@ let showCarrito = (arr) => {
 
       modelo.forEach((el) => {
         let itemNode;
-
+        let result = el.precio / moneda.value;
+        result = result.toFixed(2);
         if (el.ID == e) {
           // Agrega nuevo item
           itemNode = `
@@ -149,7 +169,7 @@ let showCarrito = (arr) => {
         <img
           class="item__img"
           src="${el.url}"
-          alt=""
+          alt="${el.detalle}"
         />
         <div class="item__content">
           <h3>${el.nombre}</h3>
@@ -157,8 +177,12 @@ let showCarrito = (arr) => {
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </p>
           <div class="precio-box">
-                  <p>PEN</p>
-                  <input id="prc" type="text" value="${el.precio}" readonly />
+                  <p>${
+                    monedaDiv.querySelector("#tipo_cambio").options[
+                      monedaDiv.querySelector("#tipo_cambio").selectedIndex
+                    ].text
+                  }</p>
+                  <input id="prc" type="text" value="${result}" readonly />
                 </div>
           <div class="btns">
             <input
@@ -184,64 +208,92 @@ let showCarrito = (arr) => {
   }
 };
 
-fetch("data/data.json")
-  .then((res) => res.json())
-  .then((data) => {
-    modelo = data;
+//AVISO DE COMPRA
+let avisoCompra = () => {
+  Toastify({
+    text: "Agregaste un articulo al carrito",
+    className: "info",
+    gravity: "top", // `top` or `bottom`
+    position: "left", // `left`, `center` or `right`
+    style: {
+      background: "linear-gradient(to right, #00b09b, #96c93d)",
+    },
+  }).showToast();
+};
 
-    showModelo();
-
-    showCarrito(carritoArr);
-
-    //Storage JSON
-
-    //evento submit
-    const forms = document.querySelectorAll("#formAdd");
-    for (const el of forms) {
-      el.addEventListener("submit", (event) => {
-        event.preventDefault();
-        carrito.innerHTML = "";
-        carritoArr.push(parseInt(event.currentTarget.id.value));
-
-        showCarrito(carritoArr);
-        calculo();
-
-        storageCarrito(carritoArr);
-        Toastify({
-          text: "Agregaste un articulo al carrito",
-          className: "info",
-          style: {
-            background: "linear-gradient(to right, #00b09b, #96c93d)",
-          },
-        }).showToast();
-      });
-    }
-
-    //evento eliminar event delegation
-
-    carrito.addEventListener("click", (e) => {
-      if (e.target.classList.contains("del-icon")) {
-        e.target.parentElement.parentElement.parentElement.remove();
-        carritoArr = removeValue(
-          parseInt(e.target.parentElement.parentElement.parentElement.id),
-          carritoArr
-        );
-        storageCarrito(carritoArr);
-        calculo();
-      }
-    });
-    if (JSON.parse(localStorage.getItem("carrito"))) {
-      calculo();
-    }
-  });
-
-//https://randomuser.me/ web de personas
-//https://t.me/+U32Ru8shXAM4ZjAx Telegram de Adrian Escalante
-//https://gonzabertinat.github.io/Argencoin-Bertinat/ ejemplo de proyecto final
-//
-
-/*
-closeIcon.addEventListener("click", () => {
-mobileMenu.classList.toggle("active");
+const moneda = document.getElementById("tipo_cambio");
+moneda.addEventListener("change", () => {
+  console.log(moneda.value);
+  showModelo();
+  carrito.innerHTML = "";
+  showCarrito(carritoArr);
+  calculo();
 });
-*/
+
+//evento eliminar event delegation
+carrito.addEventListener("click", (elemento) => {
+  if (elemento.target.classList.contains("del-icon")) {
+    carritoArr = removeValue(
+      parseInt(elemento.target.parentElement.parentElement.parentElement.id),
+      carritoArr
+    );
+    storageCarrito("carrito", carritoArr);
+    elemento.target.parentElement.parentElement.parentElement.remove();
+    calculo();
+  }
+});
+
+//evento submit
+lista.addEventListener("click", (e) => {
+  if (e.target.id == "agregar") {
+    e.preventDefault();
+    carrito.innerHTML = "";
+    carritoArr.push(
+      parseInt(
+        e.target.parentElement.parentElement.querySelector(".id-input").value
+      )
+    );
+    showCarrito(carritoArr);
+    calculo();
+    storageCarrito("carrito", carritoArr);
+    avisoCompra();
+  }
+});
+
+const monedaDiv = document.querySelector(".moneda");
+
+let getRate = async () => {
+  const resRate = await fetch(
+    `http://api.exchangeratesapi.io/v1/latest?access_key=a608b102616209b3068fa0cb3cb43cfd&symbols=USD,PEN,EUR`
+  );
+
+  const resData = await resRate.json();
+  //La información llega en base al Euro
+  //tipo de cambio en base al sol peruano (PEN)
+  let penToUSD = resData.rates.PEN / resData.rates.USD;
+  let penToEUR = resData.rates.PEN / resData.rates.EUR;
+  let htmlTC = `
+    <option value=${penToUSD.toFixed(2)} data-usd = ${penToUSD}>USD</option>
+    <option value=${penToEUR.toFixed(2)} data-eur = ${penToEUR}>EUR</option>
+  `;
+  moneda.insertAdjacentHTML("beforeend", htmlTC);
+
+  //storageCarrito("tc", tc);
+};
+getRate();
+
+// render all
+const render = () => {
+  fetch("data/data.json")
+    .then((res) => res.json())
+    .then((data) => {
+      modelo = data;
+
+      showModelo();
+
+      showCarrito(carritoArr);
+
+      calculo();
+    });
+};
+render();

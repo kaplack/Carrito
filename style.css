@@ -28,8 +28,24 @@ ul {
 .main-nav {
   height: 60px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+}
+.logo h1 {
+  margin-left: 10px;
+}
+.carrito-number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.menu-icons {
+  display: flex;
+  margin-right: 15px;
+}
+.moneda {
+  margin-right: 10px;
 }
 
 .car-icon {
@@ -39,10 +55,27 @@ ul {
 #cant-hd {
   border: none;
   width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: orangered;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  font-size: 12px;
+  color: white;
 }
 
-/********************************************* MODEL SECTION */
-
+/********************************************* PICTURE SECTION */
+.fotos {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.intro {
+  margin-bottom: 30px;
+}
 #model-list {
   display: flex;
   gap: 10px;
@@ -50,7 +83,7 @@ ul {
 }
 
 li.model {
-  flex: 1 0 220px;
+  flex: 1 1 200px;
   background-color: lightgrey;
 
   border-radius: 5px;
@@ -71,6 +104,29 @@ li.model {
   padding: 10px 5px;
 }
 
+.descripcion input {
+  display: inline-block;
+  width: 60px;
+  background-color: transparent;
+  border: none;
+  font-size: 120%;
+  font-weight: 600;
+  color: black;
+  text-align: right;
+}
+
+.descripcion span {
+  display: inline-block;
+
+  font-size: 120%;
+  font-weight: 600;
+  color: black;
+}
+.tipo-cambio {
+  text-align: right;
+  padding-right: 10px;
+}
+
 .enviar {
   text-align: center;
   margin: 5px 0;
@@ -85,13 +141,16 @@ li.model {
 /*************************************** CARRITO DE COMPRAS SECTION */
 
 .car-compras {
-  background-color: rgba(250, 250, 250, 0.6);
+  background: linear-gradient(to bottom right, grey, black);
   padding: 10px;
   border-radius: 5px;
   position: absolute;
-  top: 10px;
-  right: 10px;
-  transform: translateX(120%);
+
+  top: 0px;
+  left: 0px;
+
+  margin-top: 0;
+  transform: translateX(-100%);
   transition: 0.3s all ease-in-out;
 }
 
@@ -204,4 +263,23 @@ li.model {
   border-radius: 5px;
   padding: 1px;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  .descripcion h2 {
+    font-size: 18px;
+  }
+  .descripcion p {
+    font-size: 14px;
+  }
+
+  .car-compras {
+    width: 300px;
+  }
+  li.model {
+    flex: 1 1 190px;
+  }
+  #model-list {
+    gap: 5px;
+  }
 }

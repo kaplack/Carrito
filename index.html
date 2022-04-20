@@ -27,12 +27,33 @@
   <body>
     <header>
       <nav class="main-nav row">
-        <input id="cant-hd" type="text" readonly />
-        <span class="material-icons-outlined car-icon"> shopping_cart </span>
+        <div class="logo">
+          <h1>Soy Modelo</h1>
+        </div>
+        <div class="menu-icons">
+          <div class="moneda">
+            <select name="tipo_cambio" id="tipo_cambio">
+              <option value="1" selected data-pen="1">PEN</option>
+            </select>
+          </div>
+          <div class="carrito-number">
+            <span class="material-icons-outlined car-icon">
+              shopping_cart
+            </span>
+            <span id="cant-hd"></span>
+          </div>
+        </div>
       </nav>
     </header>
     <section class="fotos">
-      <h1 class="row">Modelos</h1>
+      <div class="intro row">
+        <h1 class="row">Fotografias</h1>
+        <p>
+          En esta sección puedes adquirir fotos y utilizarlas en tu proxima
+          campaña.
+        </p>
+      </div>
+
       <div class="fotos-box row">
         <ul id="model-list"></ul>
       </div>
