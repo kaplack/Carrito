@@ -145,7 +145,7 @@ li.model {
   padding: 10px;
   border-radius: 5px;
   position: absolute;
-
+  width: 300px;
   top: 0px;
   left: 0px;
 
@@ -195,9 +195,9 @@ li.model {
 }
 
 .item__img {
-  width: 50px;
+  width: 120px;
   height: 100%;
-  flex: 1 0 40%;
+
   -o-object-fit: cover;
   object-fit: cover;
   -o-object-position: center;
@@ -207,6 +207,7 @@ li.model {
 .item__content {
   padding: 5px;
   position: relative;
+  width: 100%;
 }
 
 .item__content .descrip {
@@ -277,7 +278,7 @@ li.model {
     width: 300px;
   }
   li.model {
-    flex: 1 1 190px;
+    flex: 1 1 170px;
   }
   #model-list {
     gap: 5px;

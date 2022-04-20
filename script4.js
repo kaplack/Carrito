@@ -174,7 +174,7 @@ let showCarrito = (arr) => {
         <div class="item__content">
           <h3>${el.nombre}</h3>
           <p class="descrip">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            ${el.detalle}
           </p>
           <div class="precio-box">
                   <p>${
@@ -239,6 +239,7 @@ carrito.addEventListener("click", (elemento) => {
     );
     storageCarrito("carrito", carritoArr);
     elemento.target.parentElement.parentElement.parentElement.remove();
+
     calculo();
   }
 });
